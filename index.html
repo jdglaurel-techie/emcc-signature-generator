@@ -236,8 +236,8 @@
     <input type="url" id="fLogo" value="https://i.imgur.com/AgvucPX.jpeg">
     <div class="hint">Hosted permanently on Imgur, no expiry. Swap this out any time by pasting a different direct image link.</div>
 
-    <label>Logo width (px)</label>
-    <input type="text" id="fLogoWidth" value="130" style="max-width:120px;">
+    <label>Logo width (px, small inline icon next to company name)</label>
+    <input type="text" id="fLogoWidth" value="20" style="max-width:120px;">
 
     <label>Banner image URL (optional — full-width strip below contact details)</label>
     <input type="url" id="fBanner" value="https://i.imgur.com/zSoBXe4.jpeg">
@@ -312,9 +312,9 @@ function buildHTML(overrides){
   const disclaimer = document.getElementById('fDisclaimer').value.trim();
   const color = document.getElementById('fColor').value.trim() || '#0d3b78';
 
-  let logoCell = '';
+  let logoInline = '';
   if(logo){
-    logoCell = `<td style="padding-right:16px;vertical-align:top;width:${esc(logoWidth)}px;max-width:35%;"><img src="${esc(logo)}" width="${esc(logoWidth)}" style="display:block;width:100%;max-width:${esc(logoWidth)}px;height:auto;border-radius:6px;" alt="${company} logo"></td>`;
+    logoInline = `<img src="${esc(logo)}" width="${esc(logoWidth)}" height="${esc(logoWidth)}" style="display:inline-block;vertical-align:middle;border-radius:3px;margin-right:6px;" alt="${company} logo">`;
   }
 
   let socialRow = '';
@@ -343,7 +343,6 @@ function buildHTML(overrides){
 
   return `<table cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#222222;">
   <tr>
-    ${logoCell}
     <td style="vertical-align:top;border-left:3px solid ${color};padding-left:14px;">
       <div style="font-size:19px;font-weight:900;letter-spacing:.2px;color:${color};margin-bottom:0px;line-height:1.1;">${name}</div>
       <div style="font-size:13px;font-weight:bold;color:#444444;margin-bottom:8px;margin-top:0px;line-height:1.1;">${title}</div>
@@ -355,7 +354,7 @@ function buildHTML(overrides){
         <tr><td style="width:20px;text-align:center;color:${color};vertical-align:top;">🌐</td><td><a href="https://${web}" style="color:${color};text-decoration:none;">${web}</a></td></tr>
         ${socialRow}
       </table>
-      <div style="margin-top:6px;font-weight:bold;color:${color};">${company}</div>
+      <div style="margin-top:6px;font-weight:bold;color:${color};">${logoInline}${company}</div>
     </td>
   </tr>
   ${bannerRow}
